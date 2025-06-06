@@ -3,16 +3,20 @@ from constants import *
 from player import Player
 from asteroid import *
 from asteroidfield import AsteroidField
+from bullet import Shot
 
 def main():
     pygame.init()
-
+    
+    hitboxes = False
     asteroids = pygame.sprite.Group()
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    bullets = pygame.sprite.Group()
     Player.containers = (updatable,drawable)
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     Asteroid.containers = (asteroids,updatable,drawable)
+    Shot.containers = (updatable,drawable,bullets)
     AsteroidField.containers = (updatable, )
     asteroid_field = AsteroidField()
 
@@ -20,7 +24,6 @@ def main():
     time = pygame.time.Clock()
     dt = 0
 
-    print(asteroid_field in updatable)
 
     # GAME LOOP
     while True:
@@ -31,11 +34,28 @@ def main():
         for thing in updatable:
             thing.update(dt)
         for thing in drawable:
-            thing.draw(screen)
+            if thing == player:
+                # set to true if you want hitboxes
+                thing.draw(screen,hitboxes)
+            else:
+                thing.draw(screen)
+        
+        collided_asteroids = set()
+        collided_bullets = set()
         for asteroid in asteroids:
             if asteroid.colliding(player):
                 print("Game over!")
                 sys.exit()
+            for bullet in bullets:
+                if asteroid.colliding(bullet):
+                    collided_asteroids.add(asteroid)
+                    collided_bullets.add(bullet)
+
+        for asteroid in collided_asteroids:
+            asteroid.kill()
+        for bullet in collided_bullets:
+            bullet.kill()
+
     
         pygame.display.flip()
         dt = time.tick(FPS) / 1000
