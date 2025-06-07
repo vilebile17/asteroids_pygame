@@ -52,7 +52,7 @@ def main():
                     collided_bullets.add(bullet)
 
         for asteroid in collided_asteroids:
-            asteroid.kill()
+            asteroid.split()
         for bullet in collided_bullets:
             bullet.kill()
 
