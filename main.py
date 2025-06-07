@@ -4,9 +4,13 @@ from player import Player
 from asteroid import *
 from asteroidfield import AsteroidField
 from bullet import Shot
+from scoring import total_score
+
 
 def main():
     pygame.init()
+
+    total_frames = 0
     
     hitboxes = False
     asteroids = pygame.sprite.Group()
@@ -23,7 +27,8 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
     time = pygame.time.Clock()
     dt = 0
-
+    
+    kill_count = 0
 
     # GAME LOOP
     while True:
@@ -45,6 +50,7 @@ def main():
         for asteroid in asteroids:
             if asteroid.colliding(player):
                 print("Game over!")
+                print(f"you got a score of {score}, Well Done!")
                 sys.exit()
             for bullet in bullets:
                 if asteroid.colliding(bullet):
@@ -52,9 +58,18 @@ def main():
                     collided_bullets.add(bullet)
 
         for asteroid in collided_asteroids:
-            asteroid.split()
+            kill_count += 1
+            kill_count = asteroid.split(kill_count)
         for bullet in collided_bullets:
             bullet.kill()
+        
+        total_frames += 1
+        score = total_score(total_frames,kill_count)
+        font_path = "~/asteroids_pygame/fonts/orbitron.ttf"
+        font = pygame.font.SysFont(font_path, FONT_SIZE)
+        text = font.render(f"SCORE: {score}",True, "white")
+        text_rect = text.get_rect(topright=(SCREEN_WIDTH,0))
+        screen.blit(text,text_rect)
 
     
         pygame.display.flip()

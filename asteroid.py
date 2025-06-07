@@ -14,10 +14,10 @@ class Asteroid(CircleShape):
     def update(self,dt):
         self.position += (self.velocity * dt)
 
-    def split(self):
+    def split(self, kill_count):
         self.kill()
         if self.radius <= ASTEROID_MIN_RADIUS:
-            return
+            return kill_count
         else:
             direction_of_split = random.uniform(20,50)
             vector1 = self.velocity.rotate(direction_of_split)
@@ -27,6 +27,8 @@ class Asteroid(CircleShape):
             daughter_asteroid2 = Asteroid(self.position.x, self.position.y, new_radius)
             daughter_asteroid1.velocity = vector1 * 1.2
             daughter_asteroid2.velocity = vector2 * 1.2
+            return kill_count - 1
+
 
             
 
