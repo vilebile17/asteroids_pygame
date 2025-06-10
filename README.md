@@ -1,5 +1,9 @@
 # Asteroids
 ## A simple game that we all know
+
+![Demo Gif](random_file/flopping.gif)
+
+
 ### How to download, install and use
 
 ### 1. Cloning the repo
