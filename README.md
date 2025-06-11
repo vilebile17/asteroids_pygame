@@ -11,12 +11,12 @@
 Let's actually download the game onto your system
 
 ```
-git clone https://github.com/vilebile17/asteroids.git
-cd asteroids
+git clone https://github.com/vilebile17/asteroids_pygame.git
+cd asteroids_pygame
 ```
 **Or** you could use github's built in cloner:
 ```
-gh repo clone vilebile17/asteroids
+gh repo clone vilebile17/asteroids_pygame
 cd asteroids
 ```
 
