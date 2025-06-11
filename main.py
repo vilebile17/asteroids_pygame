@@ -48,7 +48,7 @@ def main():
         collided_asteroids = set()
         collided_bullets = set()
         for asteroid in asteroids:
-            if asteroid.colliding(player):
+            if asteroid.colliding(player) or player.out_of_bounds():
                 print("Game over!")
                 print(f"you got a score of {score}, Well Done!")
                 sys.exit()
