@@ -5,7 +5,7 @@ from asteroid import *
 from asteroidfield import AsteroidField
 from bullet import Shot
 from scoring import total_score
-
+from shield import ShieldItem
 
 def main():
     pygame.init()
@@ -13,11 +13,13 @@ def main():
     total_frames = 0
     
     hitboxes = False
+    collectable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     bullets = pygame.sprite.Group()
     Player.containers = (updatable,drawable)
+    ShieldItem.containers = (updatable,drawable,collectable)
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     Asteroid.containers = (asteroids,updatable,drawable)
     Shot.containers = (updatable,drawable,bullets)
@@ -62,7 +64,11 @@ def main():
             kill_count = asteroid.split(kill_count)
         for bullet in collided_bullets:
             bullet.kill()
-        
+
+        for item in collectable:
+            if item.colliding(player):
+                item.collected()
+
         total_frames += 1
         score = total_score(total_frames,kill_count)
         font_path = "~/asteroids_pygame/fonts/orbitron.ttf"

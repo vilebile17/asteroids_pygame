@@ -1,6 +1,7 @@
 import pygame
 import random
 from asteroid import Asteroid
+from shield import ShieldItem
 from constants import *
 
 
@@ -33,8 +34,13 @@ class AsteroidField(pygame.sprite.Sprite):
         self.spawn_timer = 0.0
 
     def spawn(self, radius, position, velocity):
-        asteroid = Asteroid(position.x, position.y, radius)
-        asteroid.velocity = velocity
+        cool_random_number = random.randint(1,100)
+        if cool_random_number < 90:
+            asteroid = Asteroid(position.x, position.y, radius)
+            asteroid.velocity = velocity
+        else:
+            shield_item = ShieldItem(position.x,position.y, radius)
+            shield_item.velocity = velocity
 
     def update(self, dt):
         self.spawn_timer += dt
