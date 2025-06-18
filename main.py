@@ -5,14 +5,14 @@ from asteroid import *
 from asteroidfield import AsteroidField
 from bullet import Shot
 from scoring import total_score
-from shield import ShieldItem
+from shield import ShieldItem, Shield
 
 def main():
     pygame.init()
 
     total_frames = 0
     
-    hitboxes = False
+    active_shield = False
     collectable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     updatable = pygame.sprite.Group()
@@ -20,6 +20,7 @@ def main():
     bullets = pygame.sprite.Group()
     Player.containers = (updatable,drawable)
     ShieldItem.containers = (updatable,drawable,collectable)
+    Shield.containers = (updatable,drawable)
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     Asteroid.containers = (asteroids,updatable,drawable)
     Shot.containers = (updatable,drawable,bullets)
@@ -31,6 +32,7 @@ def main():
     dt = 0
     
     kill_count = 0
+    shield = None
 
     # GAME LOOP
     while True:
@@ -41,12 +43,8 @@ def main():
         for thing in updatable:
             thing.update(dt)
         for thing in drawable:
-            if thing == player:
-                # set to true if you want hitboxes
-                thing.draw(screen,hitboxes)
-            else:
-                thing.draw(screen)
-        
+            thing.draw(screen)
+
         collided_asteroids = set()
         collided_bullets = set()
         for asteroid in asteroids:
@@ -54,6 +52,13 @@ def main():
                 print("Game over!")
                 print(f"you got a score of {score}, Well Done!")
                 sys.exit()
+            elif active_shield:
+                if player.shield[-1].colliding(asteroid):
+                    player.shield[-1].kill()
+                    player.shield.pop()
+                    active_shield = False
+                    collided_asteroids.add(asteroid)
+                    print(
             for bullet in bullets:
                 if asteroid.colliding(bullet):
                     collided_asteroids.add(asteroid)
@@ -68,10 +73,13 @@ def main():
         for item in collectable:
             if item.colliding(player):
                 item.collected()
+                if isinstance(item,ShieldItem):
+                    active_shield = player.shield_up()
+                    
 
         total_frames += 1
         score = total_score(total_frames,kill_count)
-        font_path = "~/asteroids_pygame/fonts/orbitron.ttf"
+        font_path = "assets/fonts/Orbitron-Medium.ttf"
         font = pygame.font.SysFont(font_path, FONT_SIZE)
         text = font.render(f"SCORE: {score}",True, "white")
         text_rect = text.get_rect(topright=(SCREEN_WIDTH,0))
