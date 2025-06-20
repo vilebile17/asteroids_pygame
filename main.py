@@ -56,9 +56,9 @@ def main():
                 if player.shield[-1].colliding(asteroid):
                     player.shield[-1].kill()
                     player.shield.pop()
-                    active_shield = False
+                    if len(player.shield) == 0:
+                        active_shield = False
                     collided_asteroids.add(asteroid)
-                    print(
             for bullet in bullets:
                 if asteroid.colliding(bullet):
                     collided_asteroids.add(asteroid)

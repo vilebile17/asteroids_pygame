@@ -66,8 +66,7 @@ class Player(CircleShape):
             shot.velocity = pygame.Vector2(0,1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
 
     def shield_up(self):
-        self.shield.append(  Shield(self.position.x,self.position.y,(SHIELD_RADIUS + 2 * len(self.shield) )  ) )
-        print(self.shield)
+        self.shield.append(  Shield(self.position.x,self.position.y,SHIELD_RADIUS + (3 * len(self.shield)) )  )
         return True 
 
     def update_shield(self,shield):

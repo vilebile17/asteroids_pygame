@@ -18,10 +18,8 @@ class ShieldItem(Collectable):
 
 class Shield(CircleShape):
     # This class defines the actual shield itself rather than the collectable
-    containers = ()
-
     def __init__(self,x,y,radius):
-        super().__init__(x,y,SHIELD_RADIUS)
+        super().__init__(x,y,radius)
         
     def draw(self,screen):
-        pygame.draw.circle(screen,"green",self.position,self.radius,2)
+        pygame.draw.circle(screen,"green",self.position,self.radius,1)
