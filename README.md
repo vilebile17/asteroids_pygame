@@ -1,7 +1,5 @@
 # Asteroids
-## A simple game that we all know
-
-![Demo Gif](random_file/flopping.gif)
+## Essentially a game clone
 
 
 ### How to download, install and use
@@ -30,15 +28,21 @@ python3 -m venv venv
 ```
 What this does is it creates a virtual enviroment and assigns it the name "venv".
 
-### 3. Activate the virtual enviroment
+### 3. Install pygame
+The entire game is built using pygame so installing it is pretty important
+```
+pip install -r requirements.txt
+```
+
+### 4. Activate the virtual enviroment
 Then run
 ```
 source venv/bin/activate
 ```
 You should see (venv) appear to the left of you name in your terminal
 
-**Note:** you will need to reactivate venv every time you close and re-open your terminal if you want to play the game
-### 4. Finally, to run the game, type
+**Note:** you will need to reactivate venv every time you close and re-open your terminal
+### 5. Finally, to run the game, type
 
 ```
 python3 main.py
