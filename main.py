@@ -85,7 +85,7 @@ def main():
 
         total_frames += 1
         score = total_score(total_frames,kill_count,num_coins_collected)
-        font = pygame.font.SysFont(FONT, FONT_SIZE)
+        font = pygame.font.Font(FONT, FONT_SIZE)
         text = font.render(f"SCORE: {score}",True, "white")
         text_rect = text.get_rect(topright=(SCREEN_WIDTH,0))
         screen.blit(text,text_rect)

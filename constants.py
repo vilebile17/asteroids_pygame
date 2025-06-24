@@ -17,7 +17,7 @@ PLAYER_SHOOT_SPEED = 500 # pixels/second
 PLAYER_SHOOT_COOLDOWN = 0.5 # seconds
 
 FONT_SIZE = 36
-FONT = "roboto"
+FONT = "assets/Orbitron-Medium.ttf"
 
 ITEM_RADIUS = 20 # pixels
 SHIELD_RADIUS = 40 #pixels

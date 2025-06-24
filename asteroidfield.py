@@ -41,10 +41,10 @@ class AsteroidField(pygame.sprite.Sprite):
             asteroid.velocity = velocity
         elif cool_random_number < 97:
             coin = Coin(position.x,position.y,ITEM_RADIUS)
-            coin.velocity = velocity
+            coin.velocity = velocity * 2
         else:
             shield_item = ShieldItem(position.x,position.y, radius)
-            shield_item.velocity = velocity
+            shield_item.velocity = velocity * 2
 
     def update(self, dt):
         self.spawn_timer += dt
