@@ -18,7 +18,12 @@ gh repo clone vilebile17/asteroids_pygame
 cd asteroids
 ```
 
-### 2. Make a virtual enviroment
+### 2. Install pygame
+The entire game is built using pygame so installing it is pretty important
+```
+pip install -r requirements.txt
+```
+### 3. Make a virtual enviroment
 You need to have a virtual enviroment on your terminal in order to run asteroids.
 
 To get one, type into your terminal:
@@ -26,14 +31,6 @@ To get one, type into your terminal:
 ``` 
 python3 -m venv venv
 ```
-What this does is it creates a virtual enviroment and assigns it the name "venv".
-
-### 3. Install pygame
-The entire game is built using pygame so installing it is pretty important
-```
-pip install -r requirements.txt
-```
-
 ### 4. Activate the virtual enviroment
 Then run
 ```
