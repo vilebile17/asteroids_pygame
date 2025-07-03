@@ -4,7 +4,7 @@
 
 ### How to download, install and use
 
-### 1. Cloning the repo
+### 1. Cloning the repo.
 
 Let's actually download the game onto your system
 
