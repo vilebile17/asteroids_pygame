@@ -2,7 +2,7 @@
 ## Essentially a game clone
 
 
-### How to download, install and use
+### How to download, install and use.
 
 ### 1. Cloning the repo.
 
