@@ -19,7 +19,7 @@ cd asteroids
 ```
 
 ### 2. Playing.
-Just simply use `uv` (or similar to run it) 
+Just simply use `uv` (or similar) 
 The `pyproject.toml` file states dependencies and the project manager should automatically install them.
 Just run `uv run main.py`
 
