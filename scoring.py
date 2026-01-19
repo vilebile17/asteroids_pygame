@@ -1,14 +1,20 @@
 # 1 point per second alive
 # 3 points per asteroid killed
 
-from constants import FPS,COIN_SCORE
+from constants import FPS, COIN_SCORE
 
-def total_score(total_frames, kill_count,num_coins):
+
+def total_score(total_frames, kill_count, num_coins):
     alive_score = total_frames // FPS
     kill_score = kill_count * 3
     coin_score = num_coins * COIN_SCORE
     return kill_score + alive_score + coin_score
 
 
-    
-
+def high_score(score):
+    with open(".high_score.txt", "r") as f:
+        hs = int(f.read())
+    if score > hs:
+        print("Well done you got a new high score!")
+        with open(".high_score.txt", "w") as f:
+            f.write(str(score))

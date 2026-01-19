@@ -1,12 +1,24 @@
 import pygame
-from circleshape import CircleShape 
-from constants import *
+from circleshape import CircleShape
+from constants import (
+    PLAYER_RADIUS,
+    PLAYER_TURN_SPEED,
+    PLAYER_SHOOT_COOLDOWN,
+    PLAYER_MOVE_SPEED,
+    HITBOX_RADIUS,
+    SHOT_RADIUS,
+    SCREEN_HEIGHT,
+    SCREEN_WIDTH,
+    PLAYER_SHOOT_SPEED,
+    SHIELD_RADIUS,
+)
 from bullet import Shot
 from shield import Shield
 
+
 class Player(CircleShape):
-    def __init__(self,x,y):
-        super().__init__(x,y,PLAYER_RADIUS)
+    def __init__(self, x, y):
+        super().__init__(x, y, PLAYER_RADIUS)
         self.hitbox_radius = HITBOX_RADIUS
         self.rotation = 0
         self.x = x
@@ -22,13 +34,13 @@ class Player(CircleShape):
         c = self.position - forward * self.radius + right
         return [a, b, c]
 
-    def draw(self,screen,active_shield=False):
-        pygame.draw.polygon(screen, "white",self.triangle(), 2)
+    def draw(self, screen, active_shield=False):
+        pygame.draw.polygon(screen, "white", self.triangle(), 2)
 
-    def rotate(self,dt):
+    def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
-    
-    def move(self,dt):
+
+    def move(self, dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         self.position += forward * PLAYER_MOVE_SPEED * dt
 
@@ -46,30 +58,38 @@ class Player(CircleShape):
             self.move(dt * -1)
         if keys[pygame.K_SPACE]:
             self.shoot()
-        
+
         for shield in self.shield:
             self.update_shield(shield)
 
-    
     def out_of_bounds(self):
-        if self.position[0] < -PLAYER_RADIUS or self.position[0] > SCREEN_WIDTH + PLAYER_RADIUS:
+        if (
+            self.position[0] < -PLAYER_RADIUS
+            or self.position[0] > SCREEN_WIDTH + PLAYER_RADIUS
+        ):
             return True
-        if self.position[1] < -PLAYER_RADIUS or self.position[1] > SCREEN_HEIGHT + PLAYER_RADIUS:
+        if (
+            self.position[1] < -PLAYER_RADIUS
+            or self.position[1] > SCREEN_HEIGHT + PLAYER_RADIUS
+        ):
             return True
         return False
-    
 
     def shoot(self):
         if self.timer <= 0:
-            shot = Shot(self.position.x,self.position.y,SHOT_RADIUS)
+            shot = Shot(self.position.x, self.position.y, SHOT_RADIUS)
             self.timer = PLAYER_SHOOT_COOLDOWN
-            shot.velocity = pygame.Vector2(0,1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+            shot.velocity = (
+                pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+            )
 
     def shield_up(self):
-        self.shield.append(  Shield(self.position.x,self.position.y,SHIELD_RADIUS + (3 * len(self.shield)) )  )
-        return True 
+        self.shield.append(
+            Shield(
+                self.position.x, self.position.y, SHIELD_RADIUS + (3 * len(self.shield))
+            )
+        )
+        return True
 
-    def update_shield(self,shield):
+    def update_shield(self, shield):
         shield.position = self.position
-
-        
